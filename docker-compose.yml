@@ -1,0 +1,18 @@
+name: project_db
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: project_db
+    ports:
+      - 5432:5432
+    volumes:
+      - project_db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=ecommerce
+networks:
+  project_dbr-net:
+    driver: bridge
+volumes:
+  project_db-data:
