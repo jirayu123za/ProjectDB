@@ -96,7 +96,7 @@ class AuthController extends Controller
                         "message" => "Invalid credentials."
                     ]);
                 }
-                return ["status" => 200, "message" => "Loggedin succssfully!"];
+                return ["status" => 200, "message" => "Loggedin succssfully!", "user" => $user];
             }
             return response()->json([
                 "status" => 401,
