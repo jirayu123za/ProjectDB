@@ -15,6 +15,7 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('quantity');
             $table->string('category');
+            $table->string('image_url');
             $table->timestamps();
             $table->softDeletes();
         });
