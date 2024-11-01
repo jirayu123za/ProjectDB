@@ -16,6 +16,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // Route::post("/update/profile", [UserController::class, 'updateProfileImage']);
     Route::post("/update/profile", [UserController::class, 'updateUserProfile']);
 
+    Route::get('/cart/items', [CartController::class, 'getCartItems']);
+
     Route::post('/cart/add', [CartController::class, 'addToCart']);
 });
 

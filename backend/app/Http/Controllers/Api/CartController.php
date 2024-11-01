@@ -63,4 +63,34 @@ class CartController extends Controller
             'total_price' => $totalPrice,
         ]);
     }
+
+    public function getCartItems()
+    {
+        $user = Auth::user();
+    
+        if (!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthenticated.',
+            ], 401);
+        }
+    
+        $cart = Cart::with('items')
+            ->where('user_id', $user->user_id)
+            ->first();
+    
+        if (!$cart) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Cart is empty',
+                'cart' => [],
+            ], 200);
+        }
+    
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Cart items retrieved successfully',
+            'cart' => $cart,
+        ], 200);
+    }
 }
