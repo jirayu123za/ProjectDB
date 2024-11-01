@@ -17,6 +17,7 @@ class AuthController extends Controller
             "first_name" => "required|min:2|max:25",
             "last_name" => "required|min:2|max:25",
             "email" => "required|email|unique:users,email",
+            "gender" => "nullable|string|in:Male,Female,Other",
             "user_name" => "required|alpha_num:ascii|min:4|max:50|unique:users,user_name",
             "password" => "required|min:6|max:50|confirmed"
         ]);

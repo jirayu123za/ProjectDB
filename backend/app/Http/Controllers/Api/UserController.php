@@ -33,15 +33,15 @@ class UserController extends Controller
         $payload = $request->validate([
             "first_name" => "required|string|min:2|max:25",
             "last_name" => "required|string|min:2|max:25",
-            "user_name" => "required|string|alpha_num|min:4|max:50|unique:users,user_name," . $request->user()->id, // Unique except for current user
-            "email" => "required|email|unique:users,email," . $request->user()->id,
+            "user_name" => "required|string|alpha_num|min:4|max:50|unique:users,user_name," . $request->user()->user_id . ",user_id", 
+            "email" => "required|email|unique:users,email," . $request->user()->user_id . ",user_id",
             "password" => "nullable|string|min:6|max:50|confirmed",
             "phone_no" => "nullable|string|max:15",
-            "gender" => "nullable|string|in:male,female",
+            "gender" => "nullable|string|in:Male,Female,Other",
             "address" => "nullable|string|max:255",
             "profile_image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048"
         ]);
-
+    
         try {
             $user = $request->user();
             if (!empty($payload['password'])) {
@@ -53,12 +53,12 @@ class UserController extends Controller
                 if ($user->profile_image) {
                     Storage::delete($user->profile_image);
                 }
-                $filename = $request->file('profile_image')->store("images_" . $user->id);
+                $filename = $request->file('profile_image')->store("images_" . $user->user_id);
                 $payload['profile_image'] = $filename;
             }
-
+    
             $user->update($payload);
-
+    
             return response()->json([
                 "status" => 200,
                 "message" => "Profile updated successfully!",
@@ -72,4 +72,4 @@ class UserController extends Controller
             ], 500);
         }
     }
-}
+}    
