@@ -75,7 +75,7 @@ class CartController extends Controller
             ], 401);
         }
     
-        $cart = Cart::with('items')
+        $cart = Cart::with('items.product')
             ->where('user_id', $user->user_id)
             ->first();
     
@@ -93,4 +93,5 @@ class CartController extends Controller
             'cart' => $cart,
         ], 200);
     }
+    
 }
